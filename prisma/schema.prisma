@@ -13,7 +13,7 @@ model movies {
   title  String? @db.VarChar(150)
   genres String? @db.VarChar(50)
   year   String? @db.VarChar(50)
-  photo  String? @db.Char
+  photo  String? @db.VarChar(150)
 
 }
 

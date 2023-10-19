@@ -36,8 +36,27 @@ const getMovieById = async (params) => {
     });
     return result;
   };
+
+  const createMovie = async (id, title, genres, year, photo) => {
+    const result = await prisma.movies.create({
+      data: {
+        id: id,
+        title: title,
+        genres: genres,
+        year: year,
+        photo: photo
+      },
+      select: {
+        title: true,
+        genres: true,
+        year: true,
+      },
+    });
+    return result;
+  };
 module.exports = {
     getAllMovie,
     getMovieById,
-    deleteMovieById
+    deleteMovieById,
+    createMovie
 }

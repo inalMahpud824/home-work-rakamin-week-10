@@ -25,6 +25,11 @@ const getMovieById = async (id) => {
     return result;
   };
 
-module.exports ={getAllMovie, getMovieById, deleteMovieById}
+  const createMovie = async (id, title, genres, year, photo) => {
+    const uid = parseInt(id)
+    const result = await movieRepositories.createMovie(uid, title, genres, year, photo)
+    return result;
+  };
+module.exports ={getAllMovie, getMovieById, deleteMovieById, createMovie}
 
 

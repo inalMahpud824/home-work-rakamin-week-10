@@ -33,4 +33,15 @@ async function deleteMovieById(req, res) {
         res.status(err.status).json(err.message)
     }
 }
-module.exports = {getAllMovie, getMovieById, deleteMovieById}
+async function createMovie(req, res) {
+    const {id, title, genres, year} = req.body
+    const {filename: photo} = req.file
+    try{
+        const result = await movieServices.createMovie(id, title, genres, year, photo)
+        res.status(200).json({messege: "create new data success ",result})
+    }catch(err){
+        console.error(err)
+        res.status(500).json({message: "internal Server Error"})
+    }
+}
+module.exports = {getAllMovie, getMovieById, deleteMovieById, createMovie}
