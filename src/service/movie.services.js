@@ -38,6 +38,17 @@ const getMovieById = async (id) => {
     const result = await movieRepositories.createMovie(uid, title, genres, year, photo)
     return result;
   };
-module.exports ={getAllMovie, getMovieById, deleteMovieById, createMovie}
+
+  const updateMoviesById = async (params, title, genres, year, photo) => {
+    const result = await movieRepositories.updateMoviesById(params, title, genres, year, photo)
+    const filePath = path.join(__dirname, '../../uploads', result.oldPhoto);
+    fs.unlink(filePath, (err) => {
+        if (err) {
+          throw err =  new ResponseError(500, "internal server error");
+        }
+      });
+    return result
+  }
+module.exports ={getAllMovie, getMovieById, deleteMovieById, createMovie, updateMoviesById}
 
 

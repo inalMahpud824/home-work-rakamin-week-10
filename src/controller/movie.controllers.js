@@ -44,4 +44,16 @@ async function createMovie(req, res) {
         res.status(500).json({message: "internal Server Error"})
     }
 }
-module.exports = {getAllMovie, getMovieById, deleteMovieById, createMovie}
+async function updateMoviesById(req, res) {
+    try{
+        const {id} = req.params
+        const {title, genres, year} = req.body
+        const {filename: photo} = req.file
+        const result = await movieServices.updateMoviesById(id, title, genres, year, photo)
+        res.status(200).json({messege: "update success ",result})
+    }catch(err) {
+        console.error(err)
+        res.status(err.status).json(err.message)
+    }
+}
+module.exports = {getAllMovie, getMovieById, deleteMovieById, createMovie, updateMoviesById}

@@ -61,9 +61,51 @@ const getMovieById = async (params) => {
     });
     return result;
   };
+  const updateMoviesById = async (params, title, genres, year, photo) => {
+    const id = parseInt(params);
+    const cekId = await prisma.movies.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!cekId) {
+      throw new ResponseError(404, "not found");
+    }
+    const getOldPhoto = await prisma.movies.findUnique({
+        where:{
+            id: id
+        },
+        select:{
+            photo: true,
+            title: true
+        }
+    })
+
+    const result = await prisma.movies.update({
+      data: {
+        title: title,
+        genres: genres,
+        year: year,
+        photo: photo
+      },
+      where: {
+        id: id,
+      },
+      select: {
+        title: true,
+        genres: true,
+        year: true,
+        photo: true
+      },
+    });
+    const oldPhoto = getOldPhoto.photo
+    const data = {result, oldPhoto}
+    return data;
+  };
 module.exports = {
     getAllMovie,
     getMovieById,
     deleteMovieById,
-    createMovie
+    createMovie, 
+    updateMoviesById
 }
