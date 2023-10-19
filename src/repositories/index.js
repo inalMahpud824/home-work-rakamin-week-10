@@ -1,3 +1,3 @@
 const movieRepositories = require('./movie.repositories')
-
-module.exports = {movieRepositories}
+const userRepositories = require('./user.repositories')
+module.exports = {movieRepositories, userRepositories}

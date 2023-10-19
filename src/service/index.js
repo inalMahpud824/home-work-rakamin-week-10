@@ -1,3 +1,3 @@
 const movieServices = require('./movie.services.js')
-
-module.exports = {movieServices}
+const userServices = require('./user.services.js')
+module.exports = {movieServices, userServices}
