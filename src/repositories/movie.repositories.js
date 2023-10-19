@@ -19,8 +19,25 @@ const getMovieById = async (params) => {
     });
     return result
   };
-
+  const deleteMovieById = async (params) => {
+    const id = parseInt(params);
+    const cekId = await prisma.movies.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!cekId) {
+      return false
+    }
+    const result = await prisma.movies.delete({
+      where: {
+        id: id,
+      },
+    });
+    return result;
+  };
 module.exports = {
     getAllMovie,
-    getMovieById
+    getMovieById,
+    deleteMovieById
 }

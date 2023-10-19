@@ -23,4 +23,14 @@ async function getMovieById(req, res) {
     }
 }
 
-module.exports = {getAllMovie, getMovieById}
+async function deleteMovieById(req, res) {
+    try{
+        const {id} = req.params
+        const result = await movieServices.deleteMovieById(id)
+        res.status(200).json({messege: "delete success ",result})
+    }catch(err){
+        console.error(err)
+        res.status(err.status).json(err.message)
+    }
+}
+module.exports = {getAllMovie, getMovieById, deleteMovieById}

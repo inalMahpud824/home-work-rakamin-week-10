@@ -17,8 +17,14 @@ const getMovieById = async (id) => {
     return result;
   };
 
+  const deleteMovieById = async (id) => {
+    const result = await movieRepositories.deleteMovieById(id)
+    if(!result){
+        throw err =  new ResponseError(404, "not found");
+    }
+    return result;
+  };
 
-
-module.exports ={getAllMovie, getMovieById}
+module.exports ={getAllMovie, getMovieById, deleteMovieById}
 
 
