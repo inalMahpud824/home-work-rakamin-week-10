@@ -1,6 +1,7 @@
+const path = require("path");
 const { movieRepositories } = require("../repositories");
 const ResponseError = require("../util/response-error.js");
-
+const fs = require('fs');
 
 const getAllMovie = async (page, pageSize) => {
   const result = await movieRepositories.getAllMovie(page, pageSize);
@@ -19,6 +20,13 @@ const getMovieById = async (id) => {
 
   const deleteMovieById = async (id) => {
     const result = await movieRepositories.deleteMovieById(id)
+    const filePath = path.join(__dirname, '../../uploads', result.photo);
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        throw err =  new ResponseError(500, "internal server error");
+      }
+    });
     if(!result){
         throw err =  new ResponseError(404, "not found");
     }

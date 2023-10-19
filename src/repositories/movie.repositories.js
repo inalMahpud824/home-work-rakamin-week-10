@@ -33,6 +33,12 @@ const getMovieById = async (params) => {
       where: {
         id: id,
       },
+      select:{
+        title: true,
+        genres: true,
+        year: true,
+        photo: true
+      }
     });
     return result;
   };
@@ -50,6 +56,7 @@ const getMovieById = async (params) => {
         title: true,
         genres: true,
         year: true,
+        photo: true
       },
     });
     return result;
