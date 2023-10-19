@@ -12,4 +12,15 @@ async function getAllMovie(req, res) {
     }
 }
 
-module.exports = {getAllMovie}
+async function getMovieById(req, res) {
+    const {id} = req.params
+    try{
+        const result = await movieServices.getMovieById(id)
+        res.status(200).json(result)
+    }catch(err){
+        console.error(err)
+        res.status(err.status).json(err.message)
+    }
+}
+
+module.exports = {getAllMovie, getMovieById}

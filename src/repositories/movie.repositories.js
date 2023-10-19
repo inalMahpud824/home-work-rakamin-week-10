@@ -10,7 +10,17 @@ const getAllMovie = async (page = 1, pageSize = Number.MAX_SAFE_INTEGER) => {
       });
       return result
 }
+const getMovieById = async (params) => {
+    const id = parseInt(params);
+    const result = await prisma.movies.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return result
+  };
 
 module.exports = {
-    getAllMovie
+    getAllMovie,
+    getMovieById
 }
